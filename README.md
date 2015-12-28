@@ -158,6 +158,23 @@ export default {
 }
 ```
 
+### 完整前端代码
+````HTML
+<script type="text/javascript" src="/static/jquery.min.js"></script>
+<script type="text/javascript" src="/static/mo.bigpipe.es5.js"></script>
+<script type="text/javascript">
+new Bigpipe('karatBP')
+
+// 绑定自定义的pipe处理事件,对应服务端的bp.fire('tag', data)
+karatBP.on('tag')
+.then(function (data) {
+    var pipeData = JSON.parse(data)
+    console.log(pipeData.message)
+    $('#tag').html(pipeData.html)
+})
+</script>
+```
+
 ### 说明
 
 完整demo代码见文件
