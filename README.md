@@ -97,7 +97,7 @@ new Bigpipe('karatBP')
 </script>
 ```
 
-- 完整服务端代码：
+- 完整服务端代码 TestController.js：
 
 ````Javascript
 
@@ -140,9 +140,10 @@ function articlePipe(bp){
 }
 
 
+// 此处index函数应该被框架的route来绑定
 export default {
 
-    pindex (req, res, next, page=1){
+    index (req, res, next, page=1){
         let bp = new Bigpipe('karatBP', req, res)
 
         bp.start('view/home')
