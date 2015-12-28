@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh" >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Sails Bigpipe</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="keywords" content="bigpipe">
+<meta name="description" content="bigpipe">
+<meta name="author" content="cloud">
+<meta name="version" content="1.0">
+</head>
+<body>
+
+<div class="wrap">
+    <h3>Sails Bigpie</h3>
+    <div class="content"></div>
+    <div id="tag"></div>
+</div>
+
+
+<script type="text/javascript" src="/static/jquery.min.js"></script>
+
+<script type="text/javascript" src="/static/mo.bigpipe.es5.js"></script>
+<script type="text/javascript">
+// 此处的'karatBP'对应服务端Bigpipe实例的id,会在window对象自动添加karatBP这个属性
+new Bigpipe('karatBP')
+
+// 或者可以自动从数据中获取的Bigpipe的id,如：
+// new Bigpipe('{{_bigpipe_id}}')
+
+
+// 绑定自定义的pipe处理事件
+karatBP.on('tag')
+.then(function (data) {
+    var pipeData = JSON.parse(data)
+
+    console.log(pipeData.message)
+    $('#tag').html(pipeData.html)
+
+})
+</script>
+
+</body>
+</html>

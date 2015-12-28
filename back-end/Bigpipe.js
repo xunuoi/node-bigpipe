@@ -14,7 +14,15 @@ class Bigpipe {
     }
 
 
-    config(req=this.req, res=this.res){
+    destroy () {
+        for(let k in this){
+            delete this[k]
+        }
+    }
+
+
+    config(id=this.id, req=this.req, res=this.res){
+        this.id = id
         this.req = req
         this.res = res
     }
@@ -44,16 +52,19 @@ class Bigpipe {
         })
 
         // step 2
-        p.pipe = function(list){
+        bp.pipe = p.pipe = function(list){
             let p2 = p.then(html=>{
                 return Promise.all(list.map(pFn=>pFn(bp)))
             })
 
             // step 3
-            p2.end = function (fn){
+            bp.end = p2.end = function (fn){
                 return p2.then(result=>{
                     res.write('\n</body></html>')
-                    return res.end()
+                    res.end()
+
+                    // destroy bigpipe
+                    bp.destroy()
                 })
             }
 
