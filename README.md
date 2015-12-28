@@ -158,7 +158,7 @@ export default {
 }
 ```
 
-### 完整前端代码
+- 完整前端代码
 ````HTML
 <script type="text/javascript" src="/static/jquery.min.js"></script>
 <script type="text/javascript" src="/static/mo.bigpipe.es5.js"></script>
