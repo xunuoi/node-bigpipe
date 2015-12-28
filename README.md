@@ -32,7 +32,7 @@
 
 ### 代码示例
 
-- 构造pipe块，需要返回一个Promise对象
+- 构造pipe块，需要返回一个Promise对象，这个pipe的函数会被传入bigpipe对象参数(下面的bp就是)
 
 ````Javascript
 function tagPipe(bp){
