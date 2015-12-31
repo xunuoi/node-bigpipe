@@ -1,7 +1,7 @@
 # sails-bigpipe
 
 ### 简介
-- Bigpie for nodejs, frameworks like Express, Sails
+- Bigpie for nodejs, frameworks like Express, Sails, ThinkJS
 - Simple API: start, pipe, end。 Api简单好用
 - 服务器端API基于Promise
 
@@ -18,9 +18,9 @@
 
 
 ### 服务端API
-- `bigpipe.start`: 开始
-- `bigpipe.pipe`：传输
-- `bigpipe.end`： 结束
+- `bigpipe.start(viewPath, [data])`: 开始
+- `bigpipe.pipe(promiseList)`：传输
+- `bigpipe.end([onEndFn])`： 结束
 - `bigpipe.render(selector, htmlData)`： 向html的容器填充htmlData,相当于前端执行了$(selector).html(htmlData)
 - `bigpipe.append(selector, htmlData)`： 向html的容器追加htmlData，相当于前端$(selector).append(htmlData)
 - `bigpipe.fire(eventName, data)`: 触发前端的eventName事件，前端需要自定义好事件函数，来处理data
@@ -174,6 +174,32 @@ karatBP.on('tag')
 })
 </script>
 ```
+
+- 新增支持ThinkJS，使用时服务端略有不同:
+bp.start需要额外传入一个this参数，其他api以及前端部分跟其他一致
+
+````Javascript
+
+export default class extends Base {
+  indexAction(){
+    let http = this.http;
+    // 这里需要比Express/Sails框架，额外传入一个this参数
+    let bp = new Bigpipe('thinkBP', http.req, http.res, this)
+
+    // start默认参数是ThinkJS的默认模板文件index.html
+    bp.start()
+    .pipe([
+        tagPipe,
+        testPipe
+        
+        // other ...
+    ])
+    .end()
+ 
+  }
+}
+```
+
 
 ### 说明
 

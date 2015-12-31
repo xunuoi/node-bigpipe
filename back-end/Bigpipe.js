@@ -6,11 +6,14 @@
 
 class Bigpipe {
 
-    constructor (id, req, res) {
+    constructor (id, req, res, think=undefined) {
         this.id = id
         this.req = req
         this.res = res
         this._eventBase = { }
+
+        // support the thinkjs
+        this.think = think
     }
 
 
@@ -40,15 +43,18 @@ class Bigpipe {
                 data['_bigpipe_id'] = bp.id : 
                 data = { '_bigpipe_id': bp.id }
 
-            res.render(viewPath, data, (err, html)=>{
-
+            if(!this.think) res.render(viewPath, data, (err, html)=>{
                 if(err) return reject(err)
                 if(fn) fn(html)
 
                 res.write(html)
                 resolve(html)
-
             })
+            else this.think.assign(data), this.think.fetch(viewPath).then(html=>{
+                res.write(html)
+                resolve(html)
+            })
+
         })
 
         // step 2
