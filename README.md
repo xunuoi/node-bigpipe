@@ -175,8 +175,12 @@ karatBP.on('tag')
 </script>
 ```
 
-- 新增支持ThinkJS，使用时服务端略有不同:
-bp.start需要额外传入一个this参数，其他api以及前端部分跟其他一致
+- 新增对ThinkJS的支持
+
+使用时服务端代码略有不同:
+bp.start需要额外传入一个this参数，其他API以及前端部分无变化
+关于ThinkJS框架可访问: [https://thinkjs.org](https://thinkjs.org)
+
 
 ````Javascript
 
