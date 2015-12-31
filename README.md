@@ -179,7 +179,7 @@ karatBP.on('tag')
 
 使用时服务端代码略有不同:
 
-* bp.start需要额外传入一个this参数
+* new Bigpie时需要多传入一个this参数
 * 其他API以及前端部分无变化
 * 关于ThinkJS框架可访问: [https://thinkjs.org](https://thinkjs.org)
 
@@ -194,6 +194,7 @@ export default class extends Base {
     let bp = new Bigpipe('thinkBP', http.req, http.res, this)
 
     // start默认参数是ThinkJS的默认模板文件index.html
+    // 其他使用方法保持一致
     bp.start()
     .pipe([
         tagPipe,
