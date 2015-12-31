@@ -15,7 +15,7 @@ function tagPipe(bp){
 
             let pipeData = {
                 'html': html,
-                'message': 'for tag pipe html'
+                'message': 'for tag pipe html',
                 'css': ['a.css'],
                 'js': ['b.js'],
             }
