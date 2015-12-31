@@ -1,4 +1,4 @@
-# sails-bigpipe
+# node-bigpipe
 
 ### 简介
 - Bigpie for nodejs, frameworks like Express, Sails, ThinkJS
