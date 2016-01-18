@@ -195,7 +195,7 @@ export default class extends Base {
 
     // start默认参数是ThinkJS的默认模板文件index.html
     // 其他使用方法保持一致
-    bp.start()
+    bp.start() // 或者 bp.sart('xxx')
     .pipe([
         tagPipe,
         testPipe
