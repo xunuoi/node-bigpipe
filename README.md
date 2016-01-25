@@ -5,9 +5,11 @@
 - Simple API: start, pipe, end。 Api简单好用
 - 服务器端API基于Promise
 
+
 ### 安装
 - 服务端： import {Bigpipe} from './Bigpipe'
 - 前端： 引入jQuery和 mo.bigpipe.es5.js
+
 
 ### 使用
 
@@ -15,6 +17,7 @@
 * start这个方法来启动pipe，渲染一个基本html框架
 * pipe方法来传输之前构造的pipe块组成的数组
 * end方法来结束pipe传输，http请求结束
+
 
 
 ### 服务端API
