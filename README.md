@@ -8,7 +8,7 @@
 
 ### 安装
 - 拷贝到项目目录或者通过npm安装模块：`npm install node-bigpipe --save-dev`
-- 服务端调用： `import {Bigpipe} from './Bigpipe` 或者 `import {Bigpipe} from 'node-bigpipe`
+- 服务端调用： `import {Bigpipe} from './Bigpipe'` 或者 `import {Bigpipe} from 'node-bigpipe'`
 - 前端调用： 引入`jQuery`和`static`目录下的`mo.bigpipe.es5.js`
 - 另外前端js完全可以自己封装，不需要依赖j`Query`和提供的`mo.bigpipe.es5.js`
 
