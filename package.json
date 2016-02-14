@@ -1,6 +1,6 @@
 {
   "name": "node-bigpipe",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "bigpipe for nodejs,express,sails,thinkjs,node-web,modular bigpipe for node",
   "main": "back-end/Bigpipe.js",
   "scripts": {
