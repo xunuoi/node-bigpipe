@@ -1,8 +1,8 @@
 {
   "name": "node-bigpipe",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "bigpipe for nodejs,express,sails,thinkjs,node-web,modular bigpipe for node",
-  "main": "back-end/Bigpipe.js",
+  "main": "back-end/Bigpipe.es5.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
