@@ -3,6 +3,9 @@
   "version": "1.0.5",
   "description": "bigpipe for nodejs,express,sails,thinkjs,node-web,modular bigpipe for node",
   "main": "back-end/Bigpipe.es5.js",
+  "engines": {
+    "node": ">=4.2.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
