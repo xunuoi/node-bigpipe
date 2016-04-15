@@ -1,44 +1,46 @@
 # node-bigpipe
 
-### 简介
-- Bigpie for nodejs, frameworks like Express, Sails, ThinkJS
-- Simple API: start, pipe, end。 Api简单好用
-- 服务器端API基于Promise
+### Intro
+- Bigpie module for nodejs, web frameworks like Express, Sails, ThinkJS
+- Simple API: start, pipe, end
+- Based on Promise, 
 
 
-### 安装
-- 拷贝到项目目录或者通过npm安装模块：`npm install node-bigpipe --save-dev`
-- 服务端调用ES6环境： `import {Bigpipe} from 'node-bigpipe'` 或者 `import {Bigpipe} from './back-end/Bigpipe'`
-- 服务端调用ES5环境： `var Bigpipe = require('node-bigpipe').Bigpipe` 或者 `var Bigpipe = require('./back-end/Bigpipe.es5')`
-- 前端调用： 引入`jQuery`和`static`目录下的`mo.bigpipe.es5.js`
-- 另外前端js完全可以自己封装，不需要依赖j`Query`和提供的`mo.bigpipe.es5.js`
+### Install
+- [Copy Files into Your Project] OR [Use npm]：`npm install node-bigpipe --save-dev`
+- Backend in ES6： `import {Bigpipe} from 'node-bigpipe'` or `import {Bigpipe} from './back-end/Bigpipe'`
+- Backend in ES% `var Bigpipe = require('node-bigpipe').Bigpipe` or `var Bigpipe = require('./back-end/Bigpipe.es5')`
+- Front-End use the `jQuery` and `mo.bigpipe.es5.js` in the `static` dir
+- Also you can wrap the front-end js by yourself, just follow the `Bigpipe` API of Backend
 
 
-### 使用
+### Usage
 
-* 服务端，首先构造对应的pipe块，需要返回一个promise
-* start这个方法来启动pipe，渲染一个基本html框架
-* pipe方法来传输之前构造的pipe块组成的数组
-* end方法来结束pipe传输，http请求结束
-
-
-
-### 服务端API
-- `bigpipe.start(viewPath, [data])`: 开始
-- `bigpipe.pipe(promiseList)`：传输
-- `bigpipe.end([onEndFn])`： 结束
-- `bigpipe.render(selector, htmlData)`： 向html的容器填充htmlData,相当于前端执行了$(selector).html(htmlData)
-- `bigpipe.append(selector, htmlData)`： 向html的容器追加htmlData，相当于前端$(selector).append(htmlData)
-- `bigpipe.fire(eventName, data)`: 触发前端的eventName事件，前端需要自定义好事件函数，来处理data
-
-### 浏览器端APi
-- `bigpipe.on(eventName).then(data=>{ // deal with data ...  })`: 订阅eventName事件并通过then添加处理函数
-- `bigpie.fire/render/append` 同服务器端api介绍
+* Backend, you should create a pipe block and return a promise
+* use `start` api to ouput the pipe and render the unclosed base html frame
+* use `pipe` api to transport to browser the array composed by pipe blocks you created 
+* use `end` api to finish this bigpipe
 
 
-### 代码示例
 
-- 构造pipe块，需要返回一个Promise对象，这个pipe的函数会被传入bigpipe对象参数(下面的bp就是)
+### Backend API
+- `bigpipe.start(viewPath, [data])`: Start render
+- `bigpipe.pipe(promiseList)`：transport the pipe
+- `bigpipe.end([onEndFn])`： Stop and finish the pipe
+- `bigpipe.render(selector, htmlData)`： Similar with `$(selector).html(htmlData)`, set the dom html content 
+- `bigpipe.append(selector, htmlData)`： Similar with `$(selector).append(htmlData)`, append the dom element content
+- `bigpipe.fire(eventName, data)`: Trigger the event which subscribed in Front End. The event should is used to deal with the data transported by bigpipe. You can use `on` api to subscribe the event.
+
+### Browser API
+- `bigpipe.on(eventName).then(data=>{ // deal with data ...  })`: Subscribe the eventName and you can use `then` to add `callback` fn
+- `bigpie.fire/render/append` Set the dom content, Same with mentioned above in Backend API.
+
+
+### Examples
+
+- Create a pipe and return a Promise
+
+The implementation will be put into the tagPipe, bp
 
 ````Javascript
 function tagPipe(bp){
@@ -47,7 +49,7 @@ function tagPipe(bp){
             'tag': 'your data'
         }
 
-        // 模拟异步数据查询和输出
+        // simulate the asynchronous response
         setTimeout(()=>{
             let html = '<div><span>TagA</span><span>TagB</span><span>TagC</span><span>TagD</span></div>'
 
@@ -57,7 +59,7 @@ function tagPipe(bp){
                 'css': ['a.css'],
                 'js': ['b.js'],
             }
-            // 此处'#tag'对应前端html的容器的选择器
+            // 
             bp.fire('tag', pipeData)
             resolve()
         }, 3000)
@@ -66,7 +68,7 @@ function tagPipe(bp){
 
 ```
 
-- 在路由的请求处理函数中，启动pipe，然后结束。
+- In view controller, start the pipe
 
 ````Javascript
 
@@ -74,10 +76,9 @@ function tagPipe(bp){
         let bp = new Bigpipe('karatBP', req, res)
 
         /**
-         * bp.start会默认将 _bigpipe_id，也就是此处的'karatBP' 参数渲染到模板中。
-         * 因此前端home模板可以根据这个参数，自动new Bigpipe('{{_bigpipe_id}}'),这样浏览器端可以自动生
-         * 成对应的bigpipe对象，在浏览器端window对象会自动添加一个变量名为_bigpipe_id也就是 karatBP 的
-         * 属性，可以全局访问
+         * bp.start will put the _bigpipe_id into the template `data`。
+         * So Front End can get the id just by `new Bigpipe('{{_bigpipe_id}}')`
+         * The Object is global in browser
          */
         
         bp.start('view/home')
@@ -92,18 +93,21 @@ function tagPipe(bp){
 
 ```
 
-- 前端代码
+- Front End
 
 ````Html
 <script type="text/javascript">
-// 此处的'karatBP'对应服务端Bigpipe实例的id,会在window对象自动添加karatBP这个属性
+
+// this method will automatically export a object `karatBP` in window, and the `_bigpipe_id` shoud match the definition in backend 
 new Bigpipe('karatBP')
 
-// 或者可以自动从数据中获取的Bigpipe的id,如： new Bigpipe('{{_bigpipe_id}}')
+
+// you can also get the `_bigpipe_id` from data which has been mixed by Bigpipe:
+// new Bigpipe('{{_bigpipe_id}}')
 </script>
 ```
 
-- 完整服务端代码 TestController.js：
+- Full backend code TestController.js：
 
 ````Javascript
 
@@ -113,7 +117,7 @@ function tagPipe(bp){
             'tag': 'your data'
         }
 
-        // 模拟异步数据查询和输出
+        // simulate the asynchronous response
         setTimeout(()=>{
             let html = '<div><span>TagA</span><span>TagB</span><span>TagC</span><span>TagD</span></div>'
 
@@ -123,7 +127,7 @@ function tagPipe(bp){
                 'css': ['a.css'],
                 'js': ['b.js'],
             }
-            // 此处'#tag'对应前端html的容器的选择器
+            // here the `tag` match the event in front end. 
             bp.fire('tag', pipeData)
             resolve()
         }, 3000)
@@ -146,7 +150,7 @@ function articlePipe(bp){
 }
 
 
-// 此处index函数应该被框架的route来绑定
+// here the `index` fn should be bound in router so it can be views by url
 export default {
 
     index (req, res, next, page=1){
@@ -164,14 +168,16 @@ export default {
 }
 ```
 
-- 完整前端代码
+- Full front end code
 ````HTML
 <script type="text/javascript" src="/static/jquery.min.js"></script>
 <script type="text/javascript" src="/static/mo.bigpipe.es5.js"></script>
 <script type="text/javascript">
 new Bigpipe('karatBP')
 
-// 绑定自定义的pipe处理事件,对应服务端的bp.fire('tag', data)
+
+// subscribe the events which match the backend API `fire`, like fire('tag', data)
+
 karatBP.on('tag')
 .then(function (data) {
     var pipeData = JSON.parse(data)
@@ -181,13 +187,13 @@ karatBP.on('tag')
 </script>
 ```
 
-### 新增对ThinkJS的支持
+### Support for ThinkJS
 
-使用时服务端代码略有不同:
+Difference of usage in Backend:
 
-* new Bigpie时需要多传入一个this参数
-* 其他API以及前端部分无变化
-* 关于ThinkJS框架可访问: [https://thinkjs.org](https://thinkjs.org)
+* Put an additional param `this` into `new Bigpipe()`, like `new Bigpipe('xxxBP', http.req, http.res, this)`
+* Other API is the SAME
+* More About ThinkJS: [https://thinkjs.org](https://thinkjs.org)
 
 
 
@@ -196,12 +202,14 @@ karatBP.on('tag')
 export default class extends Base {
   indexAction(){
     let http = this.http;
-    // 这里需要比Express/Sails框架，额外传入一个this参数
+
+    // Put an additional param: `this`
     let bp = new Bigpipe('thinkBP', http.req, http.res, this)
 
-    // start默认参数是ThinkJS的默认模板文件index.html
-    // 其他使用方法保持一致
-    bp.start() // 或者 bp.sart('xxx')
+    // `start` method use default ThinkJS template path: index.html
+    
+    // other API usage is the same
+    bp.start() // or bp.sart('xxx')
     .pipe([
         tagPipe,
         testPipe
@@ -215,8 +223,8 @@ export default class extends Base {
 ```
 
 
-### 说明
+### Description
 
-完整demo代码见文件
+view full demo in github files 
 
 
