@@ -7,7 +7,7 @@
 
 
 ### Install
-- [Copy Files into Your Project] OR [Use npm]：`npm install node-bigpipe --save-dev`
+- [Copy Files into Your Project] OR [Use npm: `npm install node-bigpipe --save-dev`]
 - Backend in ES6: `import {Bigpipe} from 'node-bigpipe'` or `import {Bigpipe} from './back-end/Bigpipe'`
 - Backend in ES5: `var Bigpipe = require('node-bigpipe').Bigpipe` or `var Bigpipe = require('./back-end/Bigpipe.es5')`
 - Front-End: use the `jQuery` and `mo.bigpipe.es5.js` files in your html
