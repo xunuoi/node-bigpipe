@@ -1,22 +1,22 @@
 # node-bigpipe
 
-### Intro
+### Introduction
 - Bigpie module for nodejs, web frameworks like Express, Sails, ThinkJS
-- Simple API: start, pipe, end
-- Based on Promise, 
+- ONLY 3 Simple API: `start`, `pipe`, `end`
+- Based on `Promise`, easy to write
 
 
 ### Install
 - [Copy Files into Your Project] OR [Use npm]：`npm install node-bigpipe --save-dev`
-- Backend in ES6： `import {Bigpipe} from 'node-bigpipe'` or `import {Bigpipe} from './back-end/Bigpipe'`
-- Backend in ES% `var Bigpipe = require('node-bigpipe').Bigpipe` or `var Bigpipe = require('./back-end/Bigpipe.es5')`
-- Front-End use the `jQuery` and `mo.bigpipe.es5.js` in the `static` dir
-- Also you can wrap the front-end js by yourself, just follow the `Bigpipe` API of Backend
+- Backend in ES6: `import {Bigpipe} from 'node-bigpipe'` or `import {Bigpipe} from './back-end/Bigpipe'`
+- Backend in ES5: `var Bigpipe = require('node-bigpipe').Bigpipe` or `var Bigpipe = require('./back-end/Bigpipe.es5')`
+- Front-End: use the `jQuery` and `mo.bigpipe.es5.js` files in your html
+- Also you can wrap the front-end js by yourself, remember matching the `Bigpipe` API of Backend
 
 
 ### Usage
 
-* Backend, you should create a pipe block and return a promise
+* In Backend you should create a pipe block and return a promise
 * use `start` api to ouput the pipe and render the unclosed base html frame
 * use `pipe` api to transport to browser the array composed by pipe blocks you created 
 * use `end` api to finish this bigpipe
@@ -222,9 +222,14 @@ export default class extends Base {
 }
 ```
 
+### ES6 Version
 
-### Description
+- The default used file is `back-end/Bigpipe.es5.js` which is ES5
 
-view full demo in github files 
+- If you want use the ES6 version ,just modify the `package.json` in node-bigpipe dir, and modify the `"main": "back-end/Bigpipe.es5.js",` into `"main": "back-end/Bigpipe.js",`
 
+
+### Readme
+
+View full demo code in this github repo files.
 
