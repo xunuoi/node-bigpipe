@@ -17,9 +17,10 @@
 ### Usage
 
 * In Backend you should create a pipe block and return a promise
-* use `start` api to ouput the pipe and render the unclosed base html frame
-* use `pipe` api to transport to browser the array composed by pipe blocks you created 
-* use `end` api to finish this bigpipe
+* Use `start` api to ouput the pipe and render the unclosed base html frame
+* Use `pipe` api to transport to browser the array composed by pipe blocks you created 
+* Use `end` api to finish this bigpipe
+* More detail in Example
 
 
 
