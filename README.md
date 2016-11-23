@@ -45,7 +45,7 @@
 
 The implementation will be put into the tagPipe, bp
 
-````Javascript
+```Javascript
 function tagPipe(bp){
     return new Promise((resolve, reject)=>{
         let rdata = {
@@ -73,7 +73,7 @@ function tagPipe(bp){
 
 - In view controller, start the pipe
 
-````Javascript
+```Javascript
 
     index (req, res, next, page=1){
         let bp = new Bigpipe('karatBP', req, res)
@@ -98,7 +98,7 @@ function tagPipe(bp){
 
 - Front End
 
-````Html
+```Html
 <script type="text/javascript">
 
 // this method will automatically export a object `karatBP` in window, and the `_bigpipe_id` shoud match the definition in backend 
@@ -112,7 +112,7 @@ new Bigpipe('karatBP')
 
 - Full backend code TestController.js：
 
-````Javascript
+```Javascript
 
 function tagPipe(bp){
     return new Promise((resolve, reject)=>{
@@ -172,7 +172,7 @@ export default {
 ```
 
 - Full front end code
-````HTML
+```HTML
 <script type="text/javascript" src="/static/jquery.min.js"></script>
 <script type="text/javascript" src="/static/mo.bigpipe.es5.js"></script>
 <script type="text/javascript">
@@ -200,7 +200,7 @@ Difference of usage in Backend:
 
 
 
-````Javascript
+```Javascript
 
 export default class extends Base {
   indexAction(){
