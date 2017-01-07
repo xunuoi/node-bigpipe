@@ -2,21 +2,22 @@
 
 ### Introduction
 - Bigpie module for nodejs, web frameworks like Express, Sails, ThinkJS
-- ONLY 3 Simple API: `start`, `pipe`, `end`
+- Only 3 Simple API: `start`, `pipe`, `end`, very light and transparent
 - Based on `Promise`, easy to use and control
 
 
 ### Install
 - Backend side: [npm: `npm install node-bigpipe --save-dev`]. Or [Copy Files into your project directly]
-- Frontend side: use the `jQuery` and `bro.bigpipe.js` files in your html. Or 'require('node-bigpipe/static/bro.bigpipe')' by `webpack` or `browserify`.
-- \*Also you can wrap the Frontend js code by yourself, make sure to match the `Bigpipe` API of Backend.
+- Frontend side: Involve the `jQuery` and `bro.bigpipe.js` files into your html. Or 'require('node-bigpipe/static/bro.bigpipe')' by `webpack` or `browserify`.
+- **You can write the Frontend js code by yourself, make sure to match the `Bigpipe` API of Backend.**
 
 
 ### Usage
 
-In Backend, you should create a pipe block and return a promise. 
-In Frontend, you can use `bro.bigpipe.js` or use your own js code to call the `bigpipe` from Backend.
+In Backend, you should use `node-bigpipe` to create a bigpipe for response. 
+In Frontend, you can use `bro.bigpipe.js`, or use your own js code to call the `bigpipe` from Backend.
 
+Step:
 * require the `node-bigpipe` module by `var Bigpipe = require('node-bigpipe').Bigpipe`
 * Create an Bigpipe by `var bigpipe = new Bigpipe('pipeName', req, res)`
 * Use `start` api to ouput the pipe and render the unclosed base html frame
@@ -101,12 +102,13 @@ function tagPipe(bp){
 ```Html
 <script type="text/javascript">
 
-// this method will automatically export a object `karatBP` in window, and the `_bigpipe_id` shoud match the definition in backend 
+// This method will automatically export a object `karatBP` in window. And the `_bigpipe_id` shoud match the definition in backend 
 new Bigpipe('karatBP')
 
 
-// you can also get the `_bigpipe_id` from data which has been mixed by Bigpipe:
+// You can also use the `_bigpipe_id` parameter from backend by defaultl below:
 // new Bigpipe('{{_bigpipe_id}}')
+
 </script>
 ```
 
@@ -114,13 +116,14 @@ new Bigpipe('karatBP')
 
 ```Javascript
 
+// this is a bigpipe, you should return a promise in the bigpipe-function.
 function tagPipe(bp){
     return new Promise((resolve, reject)=>{
         let rdata = {
             'tag': 'your data'
         }
 
-        // simulate the asynchronous response
+        // simulate the asynchronous response, it may be replaced by DB/IO/NETWORK and other async operations.
         setTimeout(()=>{
             let html = '<div><span>TagA</span><span>TagB</span><span>TagC</span><span>TagD</span></div>'
 
@@ -130,7 +133,7 @@ function tagPipe(bp){
                 'css': ['a.css'],
                 'js': ['b.js'],
             }
-            // here the `tag` match the event in front end. 
+            // here the `tag` match the event in frontend. You can use the bigpipe by `on('tag')` in Frontend js code.
             bp.fire('tag', pipeData)
             resolve()
         }, 3000)
@@ -138,6 +141,7 @@ function tagPipe(bp){
 }
 
 
+// another bigpipe
 function articlePipe(bp){
     return new Promise((resolve, reject)=>{
         let rdata = {
@@ -154,6 +158,7 @@ function articlePipe(bp){
 
 
 // here the `index` fn should be bound in router so it can be views by url
+// the `view/home` is the basic html template, you can define some container div/elements in this html.
 export default {
 
     index (req, res, next, page=1){
@@ -164,7 +169,7 @@ export default {
             articlePipe,
             tagPipe,
             
-            // other ...
+            // other pipe...
         ])
         .end()
     },
@@ -173,20 +178,24 @@ export default {
 
 - Full front end code
 ```HTML
+<!-- If you want, you can write your own Frontend js to replace `jquery` and `bro.bigpipe` here. -->
 <script type="text/javascript" src="/static/jquery.min.js"></script>
 <script type="text/javascript" src="/static/bro.bigpipe.js"></script>
+
+<!-- Here will use the bigpipe object transported from Backend -->
 <script type="text/javascript">
-// The `karatBP` is the bigpipe id from Backend.
+
+// The `karatBP` is the bigpipe-id, it should match the Backend definition. Or you can use '{{_bigpipe_id}}' directly.
 new Bigpipe('karatBP')
 
 // You can subscribe the events which match the backend API `fire`, like fire('tag', data), then you can `on('tag')` in FE js.
-
 karatBP.on('tag')
 .then(function (data) {
     var pipeData = JSON.parse(data)
     console.log(pipeData.message)
     $('#tag').html(pipeData.html)
 })
+
 </script>
 ```
 
