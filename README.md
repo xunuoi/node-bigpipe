@@ -3,19 +3,19 @@
 ### Introduction
 - Bigpie module for nodejs, web frameworks like Express, Sails, ThinkJS
 - ONLY 3 Simple API: `start`, `pipe`, `end`
-- Based on `Promise`, easy to use
+- Based on `Promise`, easy to use and control
 
 
 ### Install
-- [npm: `npm install node-bigpipe --save-dev`] or [Copy Files into your project directly]
-- Front-End: use the `jQuery` and `mo.bigpipe.es5.js` files in your html
-- \*Also you can wrap the Front-End js by yourself, make sure to match the `Bigpipe` API of Backend.
+- Backend side: [npm: `npm install node-bigpipe --save-dev`]. Or [Copy Files into your project directly]
+- Frontend side: use the `jQuery` and `bro.bigpipe.js` files in your html. Or 'require('node-bigpipe/static/bro.bigpipe')' by `webpack` or `browserify`.
+- \*Also you can wrap the Frontend js code by yourself, make sure to match the `Bigpipe` API of Backend.
 
 
 ### Usage
 
 In Backend, you should create a pipe block and return a promise. 
-In Frontend, you can use `mo.bigpipe.js` or use your own js to call the `bigpipe` from Backend.
+In Frontend, you can use `bro.bigpipe.js` or use your own js code to call the `bigpipe` from Backend.
 
 * require the `node-bigpipe` module by `var Bigpipe = require('node-bigpipe').Bigpipe`
 * Create an Bigpipe by `var bigpipe = new Bigpipe('pipeName', req, res)`
@@ -174,12 +174,12 @@ export default {
 - Full front end code
 ```HTML
 <script type="text/javascript" src="/static/jquery.min.js"></script>
-<script type="text/javascript" src="/static/mo.bigpipe.es5.js"></script>
+<script type="text/javascript" src="/static/bro.bigpipe.js"></script>
 <script type="text/javascript">
+// The `karatBP` is the bigpipe id from Backend.
 new Bigpipe('karatBP')
 
-
-// subscribe the events which match the backend API `fire`, like fire('tag', data)
+// You can subscribe the events which match the backend API `fire`, like fire('tag', data), then you can `on('tag')` in FE js.
 
 karatBP.on('tag')
 .then(function (data) {
@@ -226,7 +226,7 @@ export default class extends Base {
 ```
 
 
-### Readme
+### More
 
 View full demo code in this github repo files.
 
