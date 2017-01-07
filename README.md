@@ -116,6 +116,8 @@ new Bigpipe('karatBP')
 </script>
 ```
 
+### Full Demo Code
+
 - Full Backend demo code in `demo/DemoController.js`：
 
 ```Javascript
@@ -180,7 +182,7 @@ export default {
 }
 ```
 
-- Full front end code
+- Full Frontend demo code
 ```HTML
 <!-- If you want, you can write your own Frontend js to replace `jquery` and `bro.bigpipe` here. -->
 <script type="text/javascript" src="/static/jquery.min.js"></script>
