@@ -8,7 +8,7 @@
 
 ### Install
 - Backend side: [npm: `npm install node-bigpipe --save-dev`]. Or [Copy Files into your project directly]
-- Frontend side: Involve the `jQuery` and `bro.bigpipe.js` files into your html. Or 'require('node-bigpipe/static/bro.bigpipe')' by `webpack` or `browserify`.
+- Frontend side: Involve the `jQuery` and `bro.bigpipe.js` scripts into html. Or `require('node-bigpipe/static/bro.bigpipe')` by `webpack` or `browserify`.
 - **You can write the Frontend js code by yourself, make sure to match the `Bigpipe` API of Backend.**
 
 
