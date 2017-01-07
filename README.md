@@ -3,20 +3,20 @@
 ### Introduction
 - Bigpie module for nodejs, web frameworks like Express, Sails, ThinkJS
 - ONLY 3 Simple API: `start`, `pipe`, `end`
-- Based on `Promise`, easy to write
+- Based on `Promise`, easy to use
 
 
 ### Install
-- [Copy Files into Your Project] OR [Use npm: `npm install node-bigpipe --save-dev`]
-- Backend in ES6: `import {Bigpipe} from 'node-bigpipe'` or `import {Bigpipe} from './back-end/Bigpipe'`
-- Backend in ES5: `var Bigpipe = require('node-bigpipe').Bigpipe` or `var Bigpipe = require('./back-end/Bigpipe.es5').Bigpipe`
+- [npm: `npm install node-bigpipe --save-dev`] or [Copy Files into your project directly]
 - Front-End: use the `jQuery` and `mo.bigpipe.es5.js` files in your html
-- Also you can wrap the front-end js by yourself, remember matching the `Bigpipe` API of Backend
+- \*Also you can wrap the Front-End js by yourself, make sure to match the `Bigpipe` API of Backend.
 
 
 ### Usage
 
-* In Backend you should create a pipe block and return a promise
+In Backend, you should create a pipe block and return a promise. 
+In Frontend, you can use `mo.bigpipe.js` or use your own js to call the `bigpipe` from Backend.
+
 * require the `node-bigpipe` module by `var Bigpipe = require('node-bigpipe').Bigpipe`
 * Create an Bigpipe by `var bigpipe = new Bigpipe('pipeName', req, res)`
 * Use `start` api to ouput the pipe and render the unclosed base html frame
