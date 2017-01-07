@@ -225,12 +225,6 @@ export default class extends Base {
 }
 ```
 
-### ES6 Version
-
-- The default used file is `back-end/Bigpipe.es5.js` which is ES5
-
-- If you want use the ES6 version ,just modify the `package.json` in node-bigpipe dir, and modify the `"main": "back-end/Bigpipe.es5.js",` into `"main": "back-end/Bigpipe.js",`
-
 
 ### Readme
 
