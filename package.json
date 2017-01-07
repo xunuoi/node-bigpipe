@@ -1,6 +1,6 @@
 {
   "name": "node-bigpipe",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "bigpipe for nodejs,express,sails,thinkjs,node-web,modular bigpipe for node",
   "main": "back-end/Bigpipe.es5.js",
   "engines": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xunuoi/sails-bigpipe.git"
+    "url": "git+https://github.com/xunuoi/node-bigpipe.git"
   },
   "keywords": [
     "node-bigpipe",
@@ -26,7 +26,7 @@
   "author": "Lucas X",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xunuoi/sails-bigpipe/issues"
+    "url": "https://github.com/xunuoi/node-bigpipe/issues"
   },
-  "homepage": "https://github.com/xunuoi/sails-bigpipe#readme"
+  "homepage": "https://github.com/xunuoi/node-bigpipe#readme"
 }

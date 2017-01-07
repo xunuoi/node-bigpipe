@@ -10,7 +10,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /**
  * FOR BIGPIPE
- * 模块化bigpipe， 可以url 访问，也可以api调用
+ * Modular bigpipe API
  */
 
 var Bigpipe = function () {

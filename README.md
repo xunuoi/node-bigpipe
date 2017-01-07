@@ -1,4 +1,10 @@
-# node-bigpipe
+# node-bigpipe [![node-bigpipe](https://raw.githubusercontent.com/xunuoi/node-bigpipe/master/meta/logo.png)](https://github.com/xunuoi/node-bigpipe)
+
+[![NPM version](https://img.shields.io/npm/v/node-bigpipe.svg?style=flat-square)](http://badge.fury.io/js/node-bigpipe)
+<img src="https://raw.githubusercontent.com/xunuoi/node-bigpipe/master/meta/build.png?style=flat-square" width="90" alt="Build status" />
+-----
+
+<br>
 
 ### Introduction
 - Bigpie module for nodejs, web frameworks like Express, Sails, ThinkJS
@@ -63,7 +69,7 @@ function tagPipe(bp){
                 'css': ['a.css'],
                 'js': ['b.js'],
             }
-            // 
+            // Here the `tag` event names will subscribed by Frontend js code.
             bp.fire('tag', pipeData)
             resolve()
         }, 3000)
@@ -72,7 +78,7 @@ function tagPipe(bp){
 
 ```
 
-- In view controller, start the pipe
+- In Backend controller, start the pipe
 
 ```Javascript
 
@@ -112,7 +118,7 @@ new Bigpipe('karatBP')
 </script>
 ```
 
-- Full backend code TestController.js：
+- Backend code in `demo/DemoController.js`：
 
 ```Javascript
 
@@ -237,5 +243,5 @@ export default class extends Base {
 
 ### More
 
-View full demo code in this github repo files.
+Please check the demo code in `demo` folder in the repository. And the Frontend js code is in `static` folder.
 

@@ -9,7 +9,7 @@ function tagPipe(bp){
             'tag': 'your data'
         }
 
-        // 模拟异步数据查询和输出
+        // simulate the asynchronous response
         setTimeout(()=>{
             let html = '<div><span>TagA</span><span>TagB</span><span>TagC</span><span>TagD</span></div>'
 
@@ -19,7 +19,7 @@ function tagPipe(bp){
                 'css': ['a.css'],
                 'js': ['b.js'],
             }
-            // 此处'#tag'对应前端html的容器的选择器
+            // here the '#tag' match the element id/class used in FE js selector
             bp.fire('tag', pipeData)
             resolve()
         }, 3000)
@@ -34,9 +34,9 @@ function articlePipe(bp){
         }
 
         /**
-         * 这里是调用Express/Sails框架自带的render方法的演示
+         * Here call the Express/Sails `render` api
          * 
-         * 此处render是调用了express的模板引擎的渲染方法，是express封装的方法，异步的。
+         * It's async API.
          */
         bp.res.render('view/article', rdata, (err, html)=>{
 

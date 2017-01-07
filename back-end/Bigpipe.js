@@ -1,6 +1,6 @@
 /**
  * FOR BIGPIPE
- * 模块化bigpipe， 可以url 访问，也可以api调用
+ * Modular bigpipe API
  */
 
 
