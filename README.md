@@ -1,10 +1,8 @@
 # node-bigpipe [![node-bigpipe](https://raw.githubusercontent.com/xunuoi/node-bigpipe/master/meta/logo.png)](https://github.com/xunuoi/node-bigpipe)
 
-[![NPM version](https://img.shields.io/npm/v/node-bigpipe.svg?style=flat-square)](http://badge.fury.io/js/node-bigpipe)
-<img src="https://raw.githubusercontent.com/xunuoi/node-bigpipe/master/meta/build.png?style=flat-square" width="90" alt="Build status" />
------
 
-<br>
+[![NPM version](https://img.shields.io/npm/v/node-bigpipe.svg?style=flat-square)](http://badge.fury.io/js/node-bigpipe)<img src="https://raw.githubusercontent.com/xunuoi/node-bigpipe/master/meta/build.png?style=flat-square" width="90" alt="Build status" />
+-----
 
 ### Introduction
 - Bigpie module for nodejs, web frameworks like Express, Sails, ThinkJS
@@ -118,7 +116,7 @@ new Bigpipe('karatBP')
 </script>
 ```
 
-- Backend code in `demo/DemoController.js`：
+- Full Backend demo code in `demo/DemoController.js`：
 
 ```Javascript
 
