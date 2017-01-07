@@ -35,6 +35,7 @@ Step:
 - `bigpipe.start(viewPath, [data])`: Start render
 - `bigpipe.pipe(promiseList)`：transport the pipe
 - `bigpipe.end([onEndFn])`： Stop and finish the pipe
+
 - `bigpipe.render(selector, htmlData)`： Similar with `$(selector).html(htmlData)`, set the dom html content 
 - `bigpipe.append(selector, htmlData)`： Similar with `$(selector).append(htmlData)`, append the dom element content
 - `bigpipe.fire(eventName, data)`: Trigger the event which subscribed in Front End. The event should is used to deal with the data transported by bigpipe. You can use `on` api to subscribe the event.
@@ -68,6 +69,7 @@ function tagPipe(bp){
                 'js': ['b.js'],
             }
             // Here the `tag` event names will subscribed by Frontend js code.
+            // Here you can use `render`, `append`, `fire`, it depends on your Backend code
             bp.fire('tag', pipeData)
             resolve()
         }, 3000)
@@ -156,8 +158,10 @@ function articlePipe(bp){
 
         bp.res.render('view/article', rdata, (err, html)=>{
 
+            // Here you can use `render`, `append`, `fire`
             bp.render('.wrap > .content', html)
             resolve()
+
         })
     })
 }
