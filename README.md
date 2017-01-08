@@ -29,9 +29,10 @@ Step:
 * Use `end` api to finish this bigpipe
 * More detail in Example
 
-**Note**
+**Note:**
+<br>
 If you use nginx/apache, please check the server config for buffer.
-If the response size is small, the nginx won't send pagelet, it will save in its buffer for final response. But you can close nginx buffer/gzip to show the bigpipe effect, like this:
+If the response size is small, the nginx won't send pagelet, it will save in its buffer for final response. But you can **close nginx buffer/gzip** to show the bigpipe effect obviously like this:
 
 ```bash
 location / {
@@ -47,15 +48,15 @@ location / {
 
 
 ### Backend API
-- `bigpipe.start(viewPath, [data])`: Start render
-- `bigpipe.pipe(promiseList)`：transport the pipe
-- `bigpipe.end([onEndFn])`： Stop and finish the pipe
-- `bigpipe.render(selector, htmlData)`： Similar with `$(selector).html(htmlData)`, set the dom html content 
+- `bigpipe.start(viewPath, [data])`: Start render, `viewPath` can be a basic html template
+- `bigpipe.pipe(promiseList)`：begin to transport the pipe into reponse
+- `bigpipe.end([onEndFn])`： finish the pipe
+- `bigpipe.render(selector, htmlData)`： Similar with `$(selector).html(htmlData)` in browser, set the dom html content 
 - `bigpipe.append(selector, htmlData)`： Similar with `$(selector).append(htmlData)`, append the dom element content
-- `bigpipe.fire(eventName, data)`: Trigger the event which subscribed in Front End. The event should is used to deal with the data transported by bigpipe. You can use `on` api to subscribe the event.
+- `bigpipe.fire(eventName, data)`: Trigger the event which subscribed in Front End. The event should is used to process the data transported by bigpipe. You can use `on` api to subscribe the event in Frontend js.
 
 ### Frontend js(Browser) API
-- `bigpipe.on(eventName).then(data=>{ // deal with data ...  })`: Subscribe the eventName and you can use `then` to add `callback` fn
+- `bigpipe.on(eventName).then(data=>{ // deal with data ...  })`: Subscribe the eventName, you can use callback function in `then` API to process data.
 - `bigpie.fire/render/append` Set the dom content, Same with mentioned above in Backend API.
 
 
