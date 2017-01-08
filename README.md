@@ -31,7 +31,7 @@ Step:
 
 **Note:**
 <br>
-If you use nginx/apache, please check the server config for buffer.
+If you use `nginx/apache`, please check the server `buffer` config .
 If the response size is small, the nginx won't send pagelet, it will save in its buffer for final response. But you can **close nginx buffer/gzip** to show the bigpipe effect obviously like this:
 
 ```bash
