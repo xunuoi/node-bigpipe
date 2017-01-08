@@ -3,7 +3,7 @@
  * use es6 
  */
 
-function tagPipe(bp){
+function tagPagelet(bigpipe){
     return new Promise((resolve, reject)=>{
         let rdata = {
             'tag': 'your data'
@@ -20,14 +20,14 @@ function tagPipe(bp){
                 'js': ['b.js'],
             }
             // here the '#tag' match the element id/class used in FE js selector
-            bp.fire('tag', pipeData)
+            bigpipe.fire('tag', pipeData)
             resolve()
         }, 3000)
     })
 }
 
 
-function articlePipe(bp){
+function articlePagelet(bigpipe){
     return new Promise((resolve, reject)=>{
         let rdata = {
             'article': 'your data'
@@ -38,9 +38,9 @@ function articlePipe(bp){
          * 
          * It's async API.
          */
-        bp.res.render('view/article', rdata, (err, html)=>{
+        bigpipe.res.render('view/article', rdata, (err, html)=>{
 
-            bp.render('.wrap > .content', html)
+            bigpipe.render('.wrap > .content', html)
             resolve()
         })
     })
@@ -50,16 +50,17 @@ function articlePipe(bp){
 export default {
 
     pindex (req, res, next, page=1){
-        let bp = new Bigpipe('karatBP', req, res)
+        let bigpipe = new Bigpipe('karatBP', req, res)
 
         /**
-         * bp.start会默认将 _bigpipe_id，也就是此处的'karatBP' 参数渲染到模板中。因此前端home模板可以根据这个参数，自动new Bigpipe('{{_bigpipe_id}}'),这样浏览器端可以自动生成对应的bigpipe对象，在浏览器端window对象会自动添加一个变量名为_bigpipe_id也就是 karatBP 的属性，可以全局访问
+         * `bigpipe.start` will inject the _bigpipe_id into the template `data`, So Frontend js can get the `id` by `new Bigpipe('{{_bigpipe_id}}')`
+         * And in Frontend js, it will create a object named by `_bigpipe_id`. for Example, here will create the window.karatBP in browser js.
          */
         
-        bp.start('view/home')
+        bigpipe.start('view/home')
         .pipe([
-            articlePipe,
-            tagPipe,
+            tagPagelet,
+            articlePagelet,
             
             // other ...
         ])

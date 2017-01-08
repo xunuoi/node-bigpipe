@@ -101,6 +101,11 @@ class Bigpipe {
         this.res.write(this.wrap(...args))
     }
 
+    // it's the same with render()
+    html(...args){
+        this.res.write(this.wrap(...args))
+    }
+
     
     fire(...args){
         this.res.write(this.wrapFire(...args))

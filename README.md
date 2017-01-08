@@ -29,6 +29,21 @@ Step:
 * Use `end` api to finish this bigpipe
 * More detail in Example
 
+**Note**
+If you use nginx/apache, please check the server config for buffer.
+If the response size is small, the nginx won't send pagelet, it will save in its buffer for final response. But you can close nginx buffer/gzip to show the bigpipe effect, like this:
+
+```bash
+location / {
+    gzip  off;
+    fastcgi_buffer_size 0k;
+    proxy_buffering off;
+
+    ...
+}
+```
+
+
 
 
 ### Backend API
@@ -46,13 +61,13 @@ Step:
 
 ### Examples
 
-- Create a pipe and return a Promise
+- Create a pagelet and return a Promise
 
-The implementation will be put into the tagPipe, bp
+The implementation will be put into the tagPagelet, bp
 
 ```Javascript
 // Here the `bigpipe` parameter is injected by `start` API automatically.
-function tagPipe(bigpipe){
+function tagPagelet(bigpipe){
 
     return new Promise((resolve, reject)=>{
         let rdata = {
@@ -87,13 +102,14 @@ function tagPipe(bigpipe){
         let bigpipe = new Bigpipe('karatBP', req, res)
 
         /**
-         * bigpipe.start will inject the _bigpipe_id into the template `data`, So Frontend js can get the `id` by `new Bigpipe('{{_bigpipe_id}}')`
+         * `bigpipe.start` will inject the _bigpipe_id into the template `data`, So Frontend js can get the `id` by `new Bigpipe('{{_bigpipe_id}}')`
+         * And in Frontend js, it will export a object named by `_bigpipe_id`. for Example, here will create the window.karatBP object in browser js.
          */
         
         bigpipe.start('view/home')
         .pipe([
-            articlePipe,
-            tagPipe,
+            articlePagelet,
+            tagPagelet,
             
             // other ...
         ])
@@ -125,8 +141,8 @@ new Bigpipe('karatBP')
 
 var Bigpipe = require('node-bigpipe').Bigpipe
 
-// this is a bigpipe, you should return a promise in the bigpipe-function.
-function tagPipe(bigpipe){
+// this is a pagelet for pipe, you should return a promise in the pagelet-function.
+function tagPagelet(bigpipe){
     return new Promise((resolve, reject)=>{
         let rdata = {
             'tag': 'your data'
@@ -150,8 +166,8 @@ function tagPipe(bigpipe){
 }
 
 
-// another bigpipe
-function articlePipe(bigpipe){
+// another pagelet
+function articlePagelet(bigpipe){
     return new Promise((resolve, reject)=>{
         let rdata = {
             'article': 'your data'
@@ -177,10 +193,10 @@ export default {
 
         bigpipe.start('view/home')
         .pipe([
-            articlePipe,
-            tagPipe,
+            articlePagelet,
+            tagPagelet,
             
-            // other pipe...
+            // other pagelet...
         ])
         .end()
     },
@@ -197,14 +213,13 @@ export default {
 <script type="text/javascript">
 
 // The `karatBP` is the bigpipe-id, it should match the Backend definition. Or you can use '{{_bigpipe_id}}' directly.
-new Bigpipe('karatBP')
+var karatBP = new Bigpipe('karatBP')
 
 // You can subscribe the events which match the backend API `fire`, like fire('tag', data), then you can `on('tag')` in FE js.
 karatBP.on('tag')
-.then(function (data) {
-    var pipeData = JSON.parse(data)
-    console.log(pipeData.message)
-    $('#tag').html(pipeData.html)
+.then(function (pageletData) {
+    console.log(pageletData)
+    $('#tag').html(pageletData.html)
 })
 
 </script>
@@ -215,7 +230,7 @@ karatBP.on('tag')
 Difference of usage in Backend:
 
 * Put an additional param `this` into `new Bigpipe()`, like `new Bigpipe('xxxBP', http.req, http.res, this)`
-* Other API is the SAME
+* Other APIs keep SAME with above usage
 * More About ThinkJS: [https://thinkjs.org](https://thinkjs.org)
 
 
@@ -230,16 +245,16 @@ export default class extends Base {
     let bigpipe = new Bigpipe('thinkBP', http.req, http.res, this)
 
     // `start` method use default ThinkJS template path: index.html
-    
-    // other API usage is same with this
-    bigpipe.start() // or bigpipe.sart('xxx')
+    // Or bigpipe.sart('xxx') to specific some html template file
+    bigpipe.start()
     .pipe([
-        tagPipe,
-        testPipe
+        tagPagelet,
+        articlePagelet
         
-        // other ...
+        // other pagelet...
     ])
     .end()
+    // Other APIs keep same with above usage.
  
   }
 }
