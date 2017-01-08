@@ -39,7 +39,7 @@ Step:
 - `bigpipe.append(selector, htmlData)`： Similar with `$(selector).append(htmlData)`, append the dom element content
 - `bigpipe.fire(eventName, data)`: Trigger the event which subscribed in Front End. The event should is used to deal with the data transported by bigpipe. You can use `on` api to subscribe the event.
 
-### Browser API
+### Frontend js(Browser) API
 - `bigpipe.on(eventName).then(data=>{ // deal with data ...  })`: Subscribe the eventName and you can use `then` to add `callback` fn
 - `bigpie.fire/render/append` Set the dom content, Same with mentioned above in Backend API.
 
@@ -51,7 +51,9 @@ Step:
 The implementation will be put into the tagPipe, bp
 
 ```Javascript
-function tagPipe(bp){
+// Here the `bigpipe` parameter is injected by `start` API automatically.
+function tagPipe(bigpipe){
+
     return new Promise((resolve, reject)=>{
         let rdata = {
             'tag': 'your data'
@@ -63,13 +65,13 @@ function tagPipe(bp){
 
             let pipeData = {
                 'html': html,
-                'message': 'for tag pipe html'
+                'message': 'for tag pipe html',
                 'css': ['a.css'],
                 'js': ['b.js'],
             }
             // Here the `tag` event names will subscribed by Frontend js code.
             // Here you can use `render`, `append`, `fire`, it depends on your Backend code
-            bp.fire('tag', pipeData)
+            bigpipe.fire('tag', pipeData)
             resolve()
         }, 3000)
     })
@@ -82,15 +84,13 @@ function tagPipe(bp){
 ```Javascript
 
     index (req, res, next, page=1){
-        let bp = new Bigpipe('karatBP', req, res)
+        let bigpipe = new Bigpipe('karatBP', req, res)
 
         /**
-         * bp.start will put the _bigpipe_id into the template `data`。
-         * So Front End can get the id just by `new Bigpipe('{{_bigpipe_id}}')`
-         * The Object is global in browser
+         * bigpipe.start will inject the _bigpipe_id into the template `data`, So Frontend js can get the `id` by `new Bigpipe('{{_bigpipe_id}}')`
          */
         
-        bp.start('view/home')
+        bigpipe.start('view/home')
         .pipe([
             articlePipe,
             tagPipe,
@@ -123,8 +123,10 @@ new Bigpipe('karatBP')
 
 ```Javascript
 
+var Bigpipe = require('node-bigpipe').Bigpipe
+
 // this is a bigpipe, you should return a promise in the bigpipe-function.
-function tagPipe(bp){
+function tagPipe(bigpipe){
     return new Promise((resolve, reject)=>{
         let rdata = {
             'tag': 'your data'
@@ -141,7 +143,7 @@ function tagPipe(bp){
                 'js': ['b.js'],
             }
             // here the `tag` match the event in frontend. You can use the bigpipe by `on('tag')` in Frontend js code.
-            bp.fire('tag', pipeData)
+            bigpipe.fire('tag', pipeData)
             resolve()
         }, 3000)
     })
@@ -149,16 +151,16 @@ function tagPipe(bp){
 
 
 // another bigpipe
-function articlePipe(bp){
+function articlePipe(bigpipe){
     return new Promise((resolve, reject)=>{
         let rdata = {
             'article': 'your data'
         }
 
-        bp.res.render('view/article', rdata, (err, html)=>{
+        bigpipe.res.render('view/article', rdata, (err, html)=>{
 
             // Here you can use `render`, `append`, `fire`
-            bp.render('.wrap > .content', html)
+            bigpipe.render('.wrap > .content', html)
             resolve()
 
         })
@@ -171,9 +173,9 @@ function articlePipe(bp){
 export default {
 
     index (req, res, next, page=1){
-        let bp = new Bigpipe('karatBP', req, res)
+        let bigpipe = new Bigpipe('karatBP', req, res)
 
-        bp.start('view/home')
+        bigpipe.start('view/home')
         .pipe([
             articlePipe,
             tagPipe,
@@ -225,12 +227,12 @@ export default class extends Base {
     let http = this.http;
 
     // Put an additional param: `this`
-    let bp = new Bigpipe('thinkBP', http.req, http.res, this)
+    let bigpipe = new Bigpipe('thinkBP', http.req, http.res, this)
 
     // `start` method use default ThinkJS template path: index.html
     
-    // other API usage is the same
-    bp.start() // or bp.sart('xxx')
+    // other API usage is same with this
+    bigpipe.start() // or bigpipe.sart('xxx')
     .pipe([
         tagPipe,
         testPipe
