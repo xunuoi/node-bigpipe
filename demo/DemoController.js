@@ -34,9 +34,7 @@ function articlePagelet(bigpipe){
         }
 
         /**
-         * Here call the Express/Sails `render` api
-         * 
-         * It's async API.
+         * It's async API. It will call `render` API inside the `node-bigpipe` module.
          */
         bigpipe.res.render('view/article', rdata, (err, html)=>{
 
